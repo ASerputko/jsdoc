@@ -25,6 +25,7 @@ You can document the type of an entity via a type name in braces. Variations inc
 - Single type: @param {string} name
 - Multiple types: @param {string|number} idCode
 - Arrays of a type: @param {string[]} names
+
 ##### *Namepaths*
 Inside JSDoc comments, so-called *namepaths* are used to refer to entities. The syntax of such paths is as follows:
 ```javascript
@@ -38,3 +39,56 @@ MyClass#instanceMember
 #### NAMING TYPES
 The types of entities are either primitive types or classes. The names of the former always start with lowercase letters; the names of the latter always start with uppercase letters. In other words, the type names of primitives are *boolean*, *number*, and *string*, just like the results returned by the typeof operator. That way, you cannot confuse strings (primitives) with instances of the constructor *String* (objects).
 
+# Basic Tags
+
+Following are the basic metadata tags:
+`@fileOverview` description
+Marks a JSDoc comment that describes the whole file. For example:
+```javascript
+/**
+ * @fileOverview Various tool functions.
+ * @author <a href="mailto:jd@example.com">John Doe</a>
+ * @version 3.1.2
+ */
+```
+`@author`
+Refers to who has written the entity being documented.
+`@deprecated`
+Indicates that the entity is not supported anymore. It is a good practice to document what to use instead.
+`@example`
+Contains a code example illustrating how the given entity should be used:
+```javascript
+/**
+ * @example
+ * var str = 'abc';
+ * console.log(repeat(str, 3)); // abcabcabc
+ */
+```
+
+Basic tags for linking are as follows:
+`@see`
+Points to a related resource:
+```javascript
+/**
+ * @see MyConstructor#myMethod
+ * @see The <a href="http://example.com">Example Project</a>.
+ */
+```
+`{@link ...}`
+Works like @see, but can be used inside other tags.
+`@requires` resourceDescription
+Indicates a resource that the documented entity needs. The resource description is either a namepath or a natural language description.
+
+Versioning tags include the following:
+`@version` versionNumber
+Indicates the version of the documented entity. For example:
+```javascript
+@version 10.3.1
+```
+`@since` versionNumber
+Indicates since which version the documented entity has been available. For example:
+```javascript
+@since 10.2.0
+```
+
+# Documenting Functions and Methods
