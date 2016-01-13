@@ -136,3 +136,77 @@ Describes the return value of the function or method. Either type or description
 
 Describes an exception that might be thrown during the execution of the function or method. Either type or description can be omitted.
 
+# Inline Type Information (“Inline Doc Comments”)
+
+There are two ways of providing type information for parameters and return values. First, you can add type annotations to @param and @returns:
+```javascript
+/**
+ * @param {String} name
+ * @returns {Object}
+ */
+function getPerson(name) {
+}
+```
+Second, you can inline the type information:
+```javascript
+function getPerson(/**String*/ name) /**Object*/ {
+}
+```
+
+# Documenting Variables, Parameters, and Instance Properties
+The following tags are used for documenting variables, parameters, and instance properties:
+
+`@type {typeName}`
+
+What type does the documented variable have? For example:
+```javascript
+/** @type {number} */
+var carCounter = 0;
+```
+This tag can also be used to document the return type of functions, but @returns is preferable in this case.
+
+`@constant`
+
+A flag that indicates that the documented variable has a constant value.
+```javascript
+/** @constant */
+var FORD = 'Ford';
+```
+`@property {propType} propKey description`
+
+Document an instance property in the constructor comment. For example:
+```javascript
+/**
+ * @constructor
+ * @property {string} name The name of the person.
+ */
+function Person(name) {
+    this.name = name;
+}
+```
+Alternatively, instance properties can be documented as follows:
+```javascript
+/**
+ * @class
+ */
+function Person(name) {
+    /**
+     * The name of the person.
+     * @type {string}
+     */
+    this.name = name;
+}
+```
+`@default defaultValue`
+
+What is the default value of a parameter or instance property? For example:
+```javascript
+/** @constructor */
+function Page(title) {
+    /**
+     * @default 'Untitled'
+     */
+     this.title = title || 'Untitled';
+}
+```
+
