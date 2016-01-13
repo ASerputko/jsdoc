@@ -43,6 +43,7 @@ The types of entities are either primitive types or classes. The names of the fo
 
 Following are the basic metadata tags:
 `@fileOverview` description
+
 Marks a JSDoc comment that describes the whole file. For example:
 ```javascript
 /**
@@ -52,10 +53,15 @@ Marks a JSDoc comment that describes the whole file. For example:
  */
 ```
 `@author`
+
 Refers to who has written the entity being documented.
+
 `@deprecated`
+
 Indicates that the entity is not supported anymore. It is a good practice to document what to use instead.
+
 `@example`
+
 Contains a code example illustrating how the given entity should be used:
 ```javascript
 /**
@@ -66,7 +72,9 @@ Contains a code example illustrating how the given entity should be used:
 ```
 
 Basic tags for linking are as follows:
+
 `@see`
+
 Points to a related resource:
 ```javascript
 /**
@@ -75,25 +83,34 @@ Points to a related resource:
  */
 ```
 `{@link ...}`
+
 Works like @see, but can be used inside other tags.
-`@requires` resourceDescription
+
+`@requires resourceDescription`
+
 Indicates a resource that the documented entity needs. The resource description is either a namepath or a natural language description.
 
 Versioning tags include the following:
-`@version` versionNumber
+
+`@version versionNumber`
+
 Indicates the version of the documented entity. For example:
 ```javascript
 @version 10.3.1
 ```
-`@since` versionNumber
+`@since versionNumber`
+
 Indicates since which version the documented entity has been available. For example:
 ```javascript
 @since 10.2.0
 ```
 
 # Documenting Functions and Methods
+
 For functions and methods, you can document parameters, return values, and exceptions they may throw:
-`@param` {paramType} paramName description
+
+`@param {paramType} paramName description`
+
 Describes the parameter whose name is paramName. Type and description are optional. Here are some examples:
 ```javascript
 @param str The string to repeat.
@@ -110,7 +127,12 @@ Advanced features:
 ```javascript
 @param {number} [times=1] The number of times is optional.
 ```
-`@returns {returnType}` description
+
+`@returns {returnType} description`
+
 Describes the return value of the function or method. Either type or description can be omitted.
-`@throws {exceptionType}` description
+
+`@throws {exceptionType} description`
+
 Describes an exception that might be thrown during the execution of the function or method. Either type or description can be omitted.
+
