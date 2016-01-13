@@ -43,7 +43,7 @@ The types of entities are either primitive types or classes. The names of the fo
 
 Following are the basic metadata tags:
 
-`@fileOverview` description
+`@fileOverview description`
 
 Marks a JSDoc comment that describes the whole file. For example:
 ```javascript
