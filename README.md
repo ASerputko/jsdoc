@@ -92,3 +92,25 @@ Indicates since which version the documented entity has been available. For exam
 ```
 
 # Documenting Functions and Methods
+For functions and methods, you can document parameters, return values, and exceptions they may throw:
+`@param` {paramType} paramName description
+Describes the parameter whose name is paramName. Type and description are optional. Here are some examples:
+```javascript
+@param str The string to repeat.
+@param {string} str
+@param {string} str The string to repeat.
+```
+Advanced features:
+
+- Optional parameter:
+```javascript
+@param {number} [times] The number of times is optional.
+```
+- Optional parameter with default value:
+```javascript
+@param {number} [times=1] The number of times is optional.
+```
+`@returns {returnType}` description
+Describes the return value of the function or method. Either type or description can be omitted.
+`@throws {exceptionType}` description
+Describes an exception that might be thrown during the execution of the function or method. Either type or description can be omitted.
