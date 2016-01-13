@@ -42,6 +42,7 @@ The types of entities are either primitive types or classes. The names of the fo
 # Basic Tags
 
 Following are the basic metadata tags:
+
 `@fileOverview` description
 
 Marks a JSDoc comment that describes the whole file. For example:
@@ -210,3 +211,116 @@ function Page(title) {
 }
 ```
 
+# Documenting Classes
+
+JSDoc distinguishes between classes and constructors. The former concept is more like a type, while a constructor is one way of implementing a class. JavaScript’s built-in means for defining classes are limited, which is why there are many APIs that help with this task. These APIs differ, often radically, so you have to help JSDoc with figuring out what is going on. The following tags let you do that:
+
+`@constructor`
+
+Marks a function as a constructor.
+
+`@class`
+
+Marks a variable or a function as a class. In the latter case, @class is a synonym for @constructor.
+
+`@constructs`
+
+Records that a method sets up the instance data. If such a method exists, the class is documented there.
+
+`@lends namePath`
+Specifies to which class the following object literal contributes. There are two ways of contributing.
+Records that a method sets up the instance data. If such a method exists, the class is documented there.
+- @lends Person#: The object literal contributes instance members to Person.
+- @lends Person: The object literal contributes static members to Person.
+
+`@memberof parentNamePath`
+
+The documented entity is a member of the specified object. @lends MyClass#, applied to an object literal, has the same effect as marking each property of that literal with @memberof MyClass#.
+The most common ways of defining a class are: via a constructor function, via an object literal, and via an object literal that has an @constructs method.
+
+#### DEFINING A CLASS VIA A CONSTRUCTOR FUNCTION
+To define a class via a constructor function, you must mark the constructor function; otherwise, it will not be documented as a class. Capitalization alone does not mark a function as a constructor:
+```javascript
+/**
+ * A class for managing persons.
+ * @constructor
+ */
+function Person(name) {
+}
+```
+#### DEFINING A CLASS VIA AN OBJECT LITERAL
+To define a class via an object literal, you need two markers. First, you need to tell JSDoc that a given variable holds a class. Second, you need to mark an object literal as defining a class. You do the latter via the @lends tag:
+```javascript
+/**
+ * A class for managing persons.
+ * @class
+ */
+var Person = makeClass(
+    /** @lends Person# */
+    {
+        say: function(message) {
+            return 'This person says: ' + message;
+        }
+    }
+);
+```
+#### DEFINING A CLASS VIA AN OBJECT LITERAL WITH AN @CONSTRUCTS METHOD
+If an object literal has an @constructs method, you need to tell JSDoc about it, so that it can find the documentation for the instance properties. The documentation of the class moves to that method:
+```javascript
+var Person = makeClass(
+    /** @lends Person# */
+    {
+        /**
+         * A class for managing persons.
+         * @constructs
+         */
+        initialize: function(name) {
+            this.name = name;
+        },
+        say: function(message) {
+            return this.name + ' says: ' + message;
+        }
+    }
+);
+```
+If you omit the @lends, you must specify which class the methods belong to:
+```javascript
+var Person = makeClass({
+        /**
+         * A class for managing persons.
+         * @constructs Person
+         */
+        initialize: function(name) {
+            this.name = name;
+        },
+        /** @memberof Person# */
+        say: function(message) {
+            return this.name + ' says: ' + message;
+        }
+    }
+);
+```
+#### SUBCLASSING
+JavaScript has no built-in support for subclassing. When you subclass in your code (be it manually, be it via a library), you have to tell JSDoc what is going on:
+
+`@extends namePath`
+
+Indicates that the documented class is the subclass of another one. For example:
+```javascript
+/**
+ * @constructor
+ * @extends Person
+ */
+function Programmer(name) {
+    Person.call(this, name);
+    ...
+}
+// Remaining code for subclassing omitted
+```
+# Other Useful Tags
+All of these tags are documented at the JSDoc website:
+
+- Modularity: @module, @exports, @namespace
+- Custom types (for virtual entities such as callbacks, whose signature you can document): @typedef, @callback
+- Legal matters: @copyright, @license
+- Various kinds of objects: @mixin, @enum
